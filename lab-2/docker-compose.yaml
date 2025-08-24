@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  sitio:
+    image: php:apache
+    container_name: sitio
+    ports:
+      - 8081:80
+    volumes:
+      - ./public_html:/var/www/html
+    networks:
+      - labwebsite-net
+
+  misitiodb:
+    image: mariadb:latest
+    container_name: misitiodb
+    volumes:
+      - websitedbvolume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "1admin9"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "1admin9"
+      MYSQL_DATABASE: "labwebsite"
+    networks:
+      - labwebsite-net
+
+networks:
+  labwebsite-net:
+
+volumes:
+  websitedbvolume:
